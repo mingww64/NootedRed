@@ -960,6 +960,7 @@ bool X5000::fixedGetDisplayInfo(AMDRadeonX5000_AMDHWDisplay* const self, const U
     // Fallback guard for early-boot race conditions:
     // If the kernel and WindowServer start quickly (e.g. SetApfsTrimTimeout=0, fast NVMe, non-verbose boot),
     // WindowServer queries display status while asynchronous DCN/eDP link training is still settling.
+    // Intentionally cover both LVDS and eDP embedded panels, but not external-only configurations.
     // When CRT is enabled for the primary built-in display (fbIndex == 0 && hasEmbeddedPanel()), guarantee online status
     // to prevent CoreDisplay from logging "Setting offline display 0x00000000 main" and aborting WindowServer.
     if (!online && isCRTEnabled && fbIndex == 0 && Backlight::singleton().hasEmbeddedPanel()) {
